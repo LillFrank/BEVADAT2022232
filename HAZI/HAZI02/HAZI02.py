@@ -96,7 +96,7 @@ def eval_classification(arr1: list, arr2: np.array):
     out = arr1[i]
     return out
 
-print(eval_classification(['alma', 'körte', 'szilva'], [0.2, 0.2, 0.6]))
+#print(eval_classification(['alma', 'körte', 'szilva'], [0.2, 0.2, 0.6]))
 
 # %%
 # Készíts egy olyan függvényt, ahol az 1D array-ben a páratlan számokat -1-re cseréli
@@ -109,8 +109,8 @@ def replace_odd_numbers(arr:np.array):
     arr[arr%2 > 0] = -1
     return arr
 
-ari = np.array([1,2,3,4,5,6])
-print(replace_odd_numbers(ari))
+#ari = np.array([1,2,3,4,5,6])
+#print(replace_odd_numbers(ari))
 
 # %%
 # Készíts egy olyan függvényt, ami egy array értékeit -1 és 1-re változtatja, attól függően, hogy az adott elem nagyobb vagy kisebb a paraméterként megadott számnál.
@@ -125,8 +125,8 @@ def replace_by_value(arr:np.array, n):
     arr[arr < n]= -1  
     return arr
 
-ari = np.array([1,2,5,0])
-print(replace_by_value(ari,2))
+#ari = np.array([1,2,5,0])
+#print(replace_by_value(ari,2))
 
 # %%
 # Készítsd egy olyan függvényt, ami az array értékeit összeszorozza és az eredmény visszaadja
@@ -140,8 +140,8 @@ def array_multi(arr:np.array):
     out = np.prod(arr)
     return out
 
-ari = np.array([1,2,3,4])
-print(array_multi(ari))
+#ari = np.array([1,2,3,4])
+#print(array_multi(ari))
 
 # %%
 # Készítsd egy olyan függvényt, ami a 2D array értékeit összeszorozza és egy olyan array-el tér vissza, aminek az elemei a soroknak a szorzata
@@ -170,8 +170,8 @@ def add_border(arr:np.array):
     arr = np.pad(arr,pad_width=1,mode='constant', constant_values=0)
     return arr
 
-ari = np.array([[1,2],[3,4]])
-print(add_border(ari))
+#ari = np.array([[1,2],[3,4]])
+#print(add_border(ari))
 
 # %%
 # Készíts egy olyan függvényt ami két dátum között felsorolja az összes napot.
@@ -195,7 +195,7 @@ def now():
     d = date.today()
     return d
 
-print(now())
+#print(now())
 
 # %%
 # Írj egy olyan függvényt ami visszadja, hogy mennyi másodperc telt el 1970 január 01. 00:00:00 óta.
@@ -211,6 +211,6 @@ def sec_from_1970():
     return epoch
   
 
-sec_from_1970()
+#sec_from_1970()
 
 
