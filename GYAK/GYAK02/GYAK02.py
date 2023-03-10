@@ -15,7 +15,7 @@ import numpy as np
 
 # %%
 def create_array(size = (2,2)):
-    return np.array(size)
+     return np.zeros(size)
 
 # %%
 #Készíts egy függvényt ami a paraméterként kapott array-t főátlót feltölti egyesekkel
@@ -37,7 +37,7 @@ def set_one(matrix : np.array):
 
 # %%
 def do_transpose(matrix : np.array):
-    return matrix.transpose
+    return np.transpose(matrix)
 
 # %%
 # Készíts egy olyan függvényt ami az array-ben lévő értékeket N tizenedjegyik kerekíti, alapértelmezetten 
@@ -57,8 +57,7 @@ def round_array(array_inp: np.array, N = 2):
 
 # %%
 def bool_array(input_arr: np.array):
-    inverted = np.invert(input_arr[True,False])
-    return inverted
+    return input_arr.astype(bool)
 
 # %%
 # Készíts egy olyan függvényt, ami a bementként  0 és 1 ből álló tömben a 1 - False-ra az 0 True-ra cserélni
@@ -68,8 +67,8 @@ def bool_array(input_arr: np.array):
 
 # %%
 def invert_bool_array(input_arr: np.array):
-    inverted = np.invert(input_arr[True,False])
-    return ~inverted
+    i = np.logical_not(input_arr.astype(bool))
+    return i
 
 # %%
 # Készíts egy olyan függvényt ami a paraméterként kapott array-t kilapítja
