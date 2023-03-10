@@ -6,7 +6,7 @@ print(sys.path)
 import sys 
 sys.path.extend('C:\\Users\\Admin\\AppData\\Roaming\\Python\\Python311\\site-packages')
 import datetime as dt
-from datetime import date
+from datetime import date, timedelta
 
 import time
 
@@ -81,7 +81,8 @@ def encode_Y(arr: np.array, class_):
 
 # %%
 def decode_Y(arr: np.array):
-    return None
+    a = arr.nonzero()
+    return a[1]
 
 # %%
 # Készíts egy olyan függvényt, ami képes kiértékelni egy neurális háló eredményét! Bemenetként egy listát és egy array-t és adja vissza a legvalószínübb element a listából.
@@ -181,12 +182,8 @@ print(add_border(ari))
 # %%
 def list_days(start: dt.datetime, end: dt.datetime):
     delta = end-start
-    
-    return delta.days
-
-st = dt.datetime(2023,3,1)
-ed = dt.datetime(2023,3,5)
-print(list_days(st,ed))
+    day = [start + timedelta(days=i) for i in range(delta.days +1)]
+    return day
 
 # %%
 # Írj egy fügvényt ami vissza adja az aktuális dátumot az alábbi formában: YYYY-MM-DD
