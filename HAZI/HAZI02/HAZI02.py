@@ -176,9 +176,7 @@ def add_border(arr:np.array):
 
 # %%
 def list_days(start: dt.datetime, end: dt.datetime):
-    delta = end-start
-    day = [start + timedelta(days=i) for i in range(delta.days +1)]
-    return day
+  return np.arange(start,end,dtype = 'datetime64[D]')
 
 # %%
 # Írj egy fügvényt ami vissza adja az aktuális dátumot az alábbi formában: YYYY-MM-DD
