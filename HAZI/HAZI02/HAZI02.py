@@ -20,11 +20,9 @@ import numpy as np
 
 # %%
 def column_swap(input: np.array):
-    input[:, [0, 1]] = input[:, [1, 0]]
-    return input
+    return np.roll(input,1,1)
 
-#ari = np.array([[1,2],[3,4]])
-#print(column_swap(ari))
+
 
 # %%
 #Készíts egy olyan függvényt ami összehasonlít két array-t és adjon vissza egy array-ben, hogy hol egyenlőek 
@@ -35,13 +33,10 @@ def column_swap(input: np.array):
 
 # %%
 def compare_two_array(arr1: np.array, arr2: np.array):
-    x = np.where(arr1 == arr2)
-    
+    x = np.where(np.equal(arr1,arr2))
     return x[0]
 
-#ari = np.array([7,8,9])
-#ari1=np.array([9,8,7])
-#print( compare_two_array(ari,ari1 ))
+
 
 
 # %%
@@ -191,11 +186,10 @@ def list_days(start: dt.datetime, end: dt.datetime):
 # Ki: 2017-03-24 
 
 # %%
-def now():
-    d = date.today()
-    return d
+def get_act_date():
+    return date.today()
 
-#print(now())
+
 
 # %%
 # Írj egy olyan függvényt ami visszadja, hogy mennyi másodperc telt el 1970 január 01. 00:00:00 óta.
