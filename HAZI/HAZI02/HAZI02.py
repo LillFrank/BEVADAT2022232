@@ -198,9 +198,7 @@ def get_act_date():
 
 # %%
 def sec_from_1970():
-   # epoch = int(time.time())
-    t = calendar.timegm(time.gmtime())
-    return int( t)
+     return int(dt.datetime(1970,1,1,2).timestamp())
   
 
 #sec_from_1970()
