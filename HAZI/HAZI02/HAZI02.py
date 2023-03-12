@@ -197,7 +197,7 @@ def get_act_date():
 
 # %%
 def sec_from_1970():
-     return int(dt.datetime(1970,1,1,23,2,tzinfo=timezone.utc).timestamp())
+     return int(dt.datetime(1970,1,1,0,2,tzinfo=timezone.utc).timestamp())
   
 
 #sec_from_1970()
