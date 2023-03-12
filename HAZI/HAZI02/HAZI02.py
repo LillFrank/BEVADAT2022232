@@ -31,9 +31,9 @@ def column_swap(input: np.array):
 # egyenlő elemszámúakra kell csak hogy működjön
 
 # %%
+
 def compare_two_array(arr1: np.array, arr2: np.array):
-    x = np.where(np.equal(arr1,arr2))
-    return x[0][0]
+    return np.where(np.equal(arr1,arr2))
 
 
 
@@ -63,9 +63,10 @@ def get_array_shape(arr: np.array):
 
 # %%
 def encode_Y(arr: np.array, class_):
-    arr1= np.array([arr],class_)
+    return np.eye(class_,dtype=int)[arr]
     
-    return None
+    
+    
 
 # %%
 # A fenti feladatnak valósítsd meg a kiértékelését. Adj meg a 2d array-t és adj vissza a decodolt változatát
@@ -197,7 +198,8 @@ def get_act_date():
 
 # %%
 def sec_from_1970():
-     return int(dt.datetime(1970,1,1,0,2,tzinfo=timezone.utc).timestamp())
+     t=np.datetime64('now')-np.datetime64('1970-01-01T00:02:00')
+     return int(t.item().total_seconds())
   
 
 #sec_from_1970()
