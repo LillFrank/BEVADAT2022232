@@ -20,7 +20,7 @@ import numpy as np
 
 # %%
 def column_swap(input: np.array):
-    return np.roll(input,1,1)
+    return np.fliplr(input)
 
 
 
