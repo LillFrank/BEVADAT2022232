@@ -34,7 +34,7 @@ def column_swap(input: np.array):
 # %%
 def compare_two_array(arr1: np.array, arr2: np.array):
     x = np.where(np.equal(arr1,arr2))
-    return x[0]
+    return x[0][0]
 
 
 
