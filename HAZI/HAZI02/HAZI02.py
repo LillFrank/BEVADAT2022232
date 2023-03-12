@@ -6,9 +6,8 @@ print(sys.path)
 import sys 
 sys.path.extend('C:\\Users\\Admin\\AppData\\Roaming\\Python\\Python311\\site-packages')
 import datetime as dt
-from datetime import date, timedelta
-import calendar
-import time
+from datetime import date, timezone
+
 
 import numpy as np
 
@@ -198,7 +197,7 @@ def get_act_date():
 
 # %%
 def sec_from_1970():
-     return int(dt.datetime(1970,1,1,2).timestamp())
+     return int(dt.datetime(1970,1,1,23,2,tzinfo=timezone.utc).timestamp())
   
 
 #sec_from_1970()
