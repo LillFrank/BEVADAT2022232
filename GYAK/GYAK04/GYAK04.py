@@ -47,7 +47,7 @@ def get_column(df:pd.DataFrame, name):
     column = df[name]
     return column
 
-print(get_column(new_df,'country'))
+#print(get_column(new_df,'country'))
 
 # %%
 '''
@@ -65,7 +65,7 @@ def get_top_two(df:pd.DataFrame):
     ndf =  df.sort_values("area", ascending=[False])
     return ndf[:2]
 
-print(get_top_two(new_df))
+#print(get_top_two(new_df))
 
 # %%
 '''
@@ -84,7 +84,7 @@ def population_density(df:pd.DataFrame):
     df['density'] = df['population']/df['area']
     return df
 
-print(population_density(new_df))
+#print(population_density(new_df))
 
 # %%
 '''
@@ -110,7 +110,7 @@ def plot_population(df:pd.DataFrame) :
     plt.title('Population of Countries')
     plt.show()
 
-print(plot_population(new_df))
+#print(plot_population(new_df))
 
 # %%
 '''
@@ -134,6 +134,6 @@ def plot_area(df:pd.DataFrame):
     ax.set_title('Area of Countries')
     plt.show()
     
-print(plot_area(new_df))    
+#print(plot_area(new_df))    
 
 
