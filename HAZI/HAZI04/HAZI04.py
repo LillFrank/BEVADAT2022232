@@ -22,14 +22,14 @@ függvény neve: csv_to_df
 '''
 
 # %%
-path_= 'C:\\Users\\Admin\\source\\repos\\BEVADAT2022232\\StudentsPerformance.csv'
+#path_= 'C:\\Users\\Admin\\source\\repos\\BEVADAT2022232\\StudentsPerformance.csv'
 
 def csv_to_df(path:str)-> pd.core.frame.DataFrame:
     p_df = pd.read_csv(path)
     return p_df
 
-df=csv_to_df(path_)
-new_df = df.copy() 
+#df=csv_to_df(path_)
+#new_df = df.copy() 
 
 # %%
 '''
@@ -48,8 +48,8 @@ def  capitalize_columns(df:pd.DataFrame) -> pd.core.frame.DataFrame:
    return df
     
 
-new_df = df.copy()
-print(capitalize_columns(new_df))
+#new_df = df.copy()
+#print(capitalize_columns(new_df))
 
 # %%
 '''
@@ -67,8 +67,8 @@ def math_passed_count(df:pd.DataFrame)-> int:
     return df['math score'].astype(int).apply(lambda x : x >= 50).value_counts()[True]
    
 
-new_df = df.copy()
-print(math_passed_count(new_df))
+#new_df = df.copy()
+#print(math_passed_count(new_df))
 
 # %%
 '''
@@ -83,8 +83,8 @@ függvény neve: did_pre_course
 # %%
 def did_pre_course(df:pd.DataFrame): 
     f = df["test preparation course"].apply(lambda x: x == "completed")
-new_df = df.copy()
-print( did_pre_course(new_df))
+#new_df = df.copy()
+#print( did_pre_course(new_df))
 
 # %%
 '''
