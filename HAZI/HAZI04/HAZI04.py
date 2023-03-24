@@ -4,7 +4,8 @@ sys.path.extend('C:\\Users\\Admin\\AppData\\Roaming\\Python\\Python311\\site-pac
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
+import random
+import pylab as pl
 # %%
 '''
 FONTOS: Az első feladatáltal visszaadott DataFrame-et kell használni a további feladatokhoz. 
@@ -43,8 +44,8 @@ függvény neve: capitalize_columns
 '''
 
 # %%
-def  capitalize_columns(df:pd.DataFrame) -> pd.core.frame.DataFrame:
-   
+def  capitalize_columns(df:pd.DataFrame) -> pd.core.frame.DataFrame: 
+   df.columns = df.columns.map(lambda x: str.upper(x) if 'e' not in x else x)
    return df
     
 
@@ -82,7 +83,7 @@ függvény neve: did_pre_course
 
 # %%
 def did_pre_course(df:pd.DataFrame): 
-    f = df["test preparation course"].apply(lambda x: x == "completed")
+       return df.loc[df["test preparation course"] == "completed"]
 #new_df = df.copy()
 #print( did_pre_course(new_df))
 
@@ -98,6 +99,8 @@ függvény neve: average_scores
 '''
 
 # %%
+def average_scores(df:pd.DataFrame)-> pd.core.frame.DataFrame:
+    return df.groupby('parental level of education')['math score', 'reading score', 'writing score'].mean()
 
 
 # %%
@@ -112,7 +115,10 @@ függvény neve: add_age
 '''
 
 # %%
-
+def add_age(df:pd.DataFrame)-> pd.core.frame.DataFrame:
+    random.seed(42)
+    df["age"] = np.random.randint(16,66,len(df))
+    return df
 
 # %%
 '''
@@ -125,7 +131,9 @@ függvény neve: female_top_score
 '''
 
 # %%
-
+def female_top_score(df:pd.DataFrame) :
+     ndf= df.loc[df["gender"] == "female"].sort_values(["math score", "writing score", "reading score"],ascending=[False,False,False]).iloc[0]
+     return (ndf["math score"], ndf["writing score"], ndf["reading score"])
 
 # %%
 '''
@@ -145,7 +153,10 @@ függvény neve: add_grade
 '''
 
 # %%
-
+def add_grade (df:pd.DataFrame) -> pd.core.frame.DataFrame:
+    map_dict = { pd.Interval(90,100): "A", pd.Interval(80,90):"B",pd.Interval(70,80):"C",pd.Interval(60,70):"D" ,pd.Interval(0,60):"F"}
+    df['grade'] = ((df['math score']+df['reading score'] + df['writing score'])/300*100).map(map_dict)
+    return df
 
 # %%
 '''
@@ -164,7 +175,14 @@ függvény neve: math_bar_plot
 
 # %%
 
-
+def math_bar_plot(df:pd.DataFrame) -> plt.Figure:
+    #df.plot.bar(df["math score"],df["gender"])
+    ax = df.groupby(["gender"])["math score"].mean().plot.bar(x="gender",y="math score")
+    ax.set_title("Average Math Score by Gender")
+    ax.set_xlabel("Gender")
+    ax.set_ylabel("Math Score")
+   # plt.show()
+    return ax
 # %%
 ''' 
 Készíts egy függvényt, ami a bemeneti Dataframe adatai alapján elkészít egy olyan histogramot,
@@ -181,7 +199,11 @@ függvény neve: writing_hist
 '''
 
 # %%
-
+def writing_hist(df:pd.DataFrame) -> plt.Figure:
+    ax = df.hist(column="writing score")
+    pl.title("Distribution of Writing Scores")
+    pl.xlabel("Writing Score")
+    pl.ylabel("Number of Students")
 
 # %%
 ''' 
@@ -199,6 +221,10 @@ függvény neve: ethnicity_pie_chart
 '''
 
 # %%
-
+def ethnicity_pie_chart(df:pd.DataFrame)-> plt.Figure:
+    fig, ax = plt.subplots()
+    ax.pie(df.groupby(["race/ethnicity"])["race/ethnicity"].count(),None,df.groupby(["race/ethnicity"])["race/ethnicity"].first(),autopct='%1.1f%%')
+    ax.axis('equal')
+    ax.set_title("Proportion of Students by Race/Ethnicity")
 
 
