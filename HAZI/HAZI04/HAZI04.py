@@ -227,6 +227,6 @@ def ethnicity_pie_chart(df:pd.DataFrame)-> plt.Figure:
     ax.pie(df.groupby(["race/ethnicity"])["race/ethnicity"].count(),None,df.groupby(["race/ethnicity"])["race/ethnicity"].first(),autopct='%1.1f%%')
     ax.axis('equal')
     ax.set_title("Proportion of Students by Race/Ethnicity")
-    return ax
+    return fig
 
 
