@@ -117,7 +117,7 @@ függvény neve: add_age
 # %%
 def add_age(df:pd.DataFrame)-> pd.core.frame.DataFrame:
     random.seed(42)
-    df["age"] = np.random.randint(16,66,len(df))
+    df["age"] = np.random.randint(16,67,len(df))
     return df
 
 # %%
@@ -154,7 +154,7 @@ függvény neve: add_grade
 
 # %%
 def add_grade (df:pd.DataFrame) -> pd.core.frame.DataFrame:
-    map_dict = { pd.Interval(90,100): "A", pd.Interval(80,90):"B",pd.Interval(70,80):"C",pd.Interval(60,70):"D" ,pd.Interval(0,60):"F"}
+    map_dict = { pd.Interval(90,100,closed='right'): "A", pd.Interval(80,90,closed='right'):"B",pd.Interval(70,80,closed='right'):"C",pd.Interval(60,70,closed='right'):"D" ,pd.Interval(0,60,closed='right'):"F"}
     df['grade'] = ((df['math score']+df['reading score'] + df['writing score'])/300*100).map(map_dict)
     return df
 
@@ -204,6 +204,7 @@ def writing_hist(df:pd.DataFrame) -> plt.Figure:
     pl.title("Distribution of Writing Scores")
     pl.xlabel("Writing Score")
     pl.ylabel("Number of Students")
+    return ax
 
 # %%
 ''' 
@@ -226,5 +227,6 @@ def ethnicity_pie_chart(df:pd.DataFrame)-> plt.Figure:
     ax.pie(df.groupby(["race/ethnicity"])["race/ethnicity"].count(),None,df.groupby(["race/ethnicity"])["race/ethnicity"].first(),autopct='%1.1f%%')
     ax.axis('equal')
     ax.set_title("Proportion of Students by Race/Ethnicity")
+    return ax
 
 
