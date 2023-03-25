@@ -176,13 +176,12 @@ függvény neve: math_bar_plot
 # %%
 
 def math_bar_plot(df:pd.DataFrame) -> plt.Figure:
-    #df.plot.bar(df["math score"],df["gender"])
+    fig,ax = plt.subplots(1,1)
     ax = df.groupby(["gender"])["math score"].mean().plot.bar(x="gender",y="math score")
     ax.set_title("Average Math Score by Gender")
     ax.set_xlabel("Gender")
     ax.set_ylabel("Math Score")
-   # plt.show()
-    return ax
+    return fig
 # %%
 ''' 
 Készíts egy függvényt, ami a bemeneti Dataframe adatai alapján elkészít egy olyan histogramot,
@@ -200,11 +199,12 @@ függvény neve: writing_hist
 
 # %%
 def writing_hist(df:pd.DataFrame) -> plt.Figure:
-    ax = df.hist(column="writing score")
+    fig, ax = plt.subplots(1,1)
+    ax.hist(df["writing score"])
     pl.title("Distribution of Writing Scores")
     pl.xlabel("Writing Score")
     pl.ylabel("Number of Students")
-    return ax
+    return fig
 
 # %%
 ''' 
