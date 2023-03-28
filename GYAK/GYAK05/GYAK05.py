@@ -82,7 +82,7 @@ class KNNClassifier:
             distances = np.array(sorted(zip(distances, self.y_train)))
 
             #leggyakoribb label kiszedése:
-            label_pred = mode(distances[:k,1],keepdims=False).mode
+            label_pred = mode(distances[:self.k,1],keepdims=False).mode
             labels_pred.append(label_pred)
 
         self.y_preds = np.array(labels_pred, dtype=np.int64)
