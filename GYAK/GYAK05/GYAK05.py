@@ -35,25 +35,6 @@ class KNNClassifier:
     x,y = load_csv(csv_path)
 
 
-
-    np.mean(x, axis=0),np.var(x,axis=0)
-    np.nanmean(x,axis=0),np.nanvar(x,axis=0)
-    x[np.isnan(x)] = 3.5
-    (x>10.0).sum(), (x<0.0).sum()
-    x[np.where(np.logical_or(x>10.0, x<0.0))]
-
-    less_than = np.where(x<0.0)
-    higher_than = np.where(x>10.0)
-    less_than,higher_than
-
-    y = np.delete(y,np.where(x<0.0)[0], axis=0)
-    y = np.delete(y,np.where(x>10.0)[0], axis=0)
-
-    x = np.delete(x,np.where(x<0.0)[0], axis=0)
-    x = np.delete(x,np.where(x>10.0)[0], axis=0)
-
-
-
     
     def train_test_split(self, features: np.ndarray, labels: np.ndarray):
         test_size = int(len(features)* self.test_split_ratio)
@@ -100,7 +81,7 @@ class KNNClassifier:
 
     def confusion_matrix(self)-> None:
         conf_matrix = confusion_matrix(self.y_test, self.y_preds)
-        sns.heatmap(conf_matrix,annot=True)
+        return conf_matrix
    
 
 
