@@ -6,7 +6,7 @@ from typing import Tuple
 from scipy.stats import mode
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
-csv_path = "iris.csv"
+
 
 
 
@@ -32,7 +32,7 @@ class KNNClassifier:
         x,y = dataset[:,:-1],dataset[:,-1] 
         return x,y
 
-    x,y = load_csv(csv_path)
+    
 
 
     
@@ -55,7 +55,7 @@ class KNNClassifier:
 
 
     
-    def predict( x_test:np.ndarray, self):
+    def predict( self, x_test:np.ndarray):
         labels_pred = []
         for x_test_element in x_test:
             #tavolsagok meghatarozasa
