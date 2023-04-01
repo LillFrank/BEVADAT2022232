@@ -41,7 +41,7 @@ class KNNClassifier:
   
     
     def euclidean(self, element_of_x:pd.DataFrame)-> pd.DataFrame:
-        return (self.x_train - element_of_x).pow(2).sum(axis=1).pow(1/2)
+        return (((self.x_train - element_of_x)**2).sum(axis=1)**0.5)
     
 
     def predict( self, x_test:pd.DataFrame) -> None:
