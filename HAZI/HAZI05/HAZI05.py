@@ -20,10 +20,9 @@ class KNNClassifier:
         return self.k
     
 
-
+    @staticmethod
     def load_csv ( csv_path :str) -> Tuple[pd.DataFrame, pd.DataFrame]:
-        random.seed(42)
-        dataset = pd.read_csv(csv_path)
+        dataset = pd.read_csv(csv_path,delimiter=',')
         shuffled = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
         x,y = shuffled.iloc[:,:-1],shuffled.iloc[:,-1] 
         return x,y
@@ -34,28 +33,28 @@ class KNNClassifier:
         train_size= len(features)-test_size
         assert len(features) == test_size + train_size, "Size mismatch"
 
-        self.x_train, self.y_train = features.iloc[:train_size,:] ,labels.iloc[:train_size]
-        self.x_test, self.y_test = features.iloc[train_size:train_size+test_size,:] ,labels.iloc[train_size:train_size+test_size]
+        self.x_train, self.y_train = features.iloc[:train_size,:].reset_index(drop=True) ,labels.iloc[:train_size].reset_index(drop=True)
+        self.x_test, self.y_test = features.iloc[train_size:train_size+test_size,:].reset_index(drop=True) ,labels.iloc[train_size:train_size+test_size].reset_index(drop=True)
 
 
   
     
-    def euclidean(self, element_of_x:pd.DataFrame)-> pd.DataFrame:
+    def euclidean(self, element_of_x:pd.Series)-> pd.Series:
         return (((self.x_train - element_of_x)**2).sum(axis=1)**0.5)
     
 
     def predict( self, x_test:pd.DataFrame) -> None:
         labels_pred = []
-        for x_test_element in x_test:
+        for i, x_test_element in x_test:
             #tavolsagok meghatarozasa
             distances = self.euclidean( x_test_element)
             distances = pd.DataFrame(sorted(zip(distances, self.y_train)))
 
             #leggyakoribb label kiszedése:
-            label_pred = mode(distances.iloc[:self.k,1],keepdims=False).mode
+            label_pred = mode(distances.iloc[:self.k,1]).mode[0]
             labels_pred.append(label_pred)
 
-        self.y_preds = pd.DataFrame(labels_pred, dtype=pd.int64)
+        self.y_preds = pd.Series(labels_pred, dtype=pd.Int64)
 
 
     def accuracy(self)-> float:
