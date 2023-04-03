@@ -6,6 +6,7 @@ from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import random
 import pandas as pd
+import math
 
 
 class KNNClassifier:
@@ -65,3 +66,19 @@ class KNNClassifier:
     def confusion_matrix(self)-> None:
         conf_matrix = confusion_matrix(self.y_test, self.y_preds)
         return conf_matrix
+    
+
+    def best_k(self) -> Tuple[int, float]:
+    
+        best = -math.inf
+        index = -1
+        for i in range(20):
+            self.k = i
+            self.predict(self.x_test)
+            ac = self.accuracy()
+            if best < ac:
+                best = ac
+
+            index = i
+
+        return (round(best,3), index)
