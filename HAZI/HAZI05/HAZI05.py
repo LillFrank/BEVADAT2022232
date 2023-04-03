@@ -44,18 +44,23 @@ class KNNClassifier:
         return (((self.x_train - element_of_x)**2).sum(axis=1)**0.5)
     
 
-    def predict( self, x_test:pd.DataFrame) -> None:
+    def predict(self, x_test:pd.DataFrame):
         labels_pred = []
-        for i, x_test_element in x_test:
+    
+        for i,x_test_element in x_test.iterrows():
             #tavolsagok meghatarozasa
-            distances = self.euclidean( x_test_element)
-            distances = pd.DataFrame(sorted(zip(distances, self.y_train)))
-
+            distances = self.euclidean(x_test_element)
+       
+            distances = pd.DataFrame({'dis':distances, 'labs': self.y_train})
+            distances.sort_values(by='dis')
             #leggyakoribb label kiszedése:
-            label_pred = mode(distances.iloc[:self.k,1]).mode[0]
+            label_pred = mode(distances.iloc[:self.k,1],axis=0).mode[0]
             labels_pred.append(label_pred)
 
-        self.y_preds = pd.Series(labels_pred, dtype=pd.Int64)
+        self.y_preds = pd.Series(labels_pred)
+        
+
+
 
 
     def accuracy(self)-> float:
