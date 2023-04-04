@@ -41,7 +41,7 @@ class KNNClassifier:
   
     
     def euclidean(self, element_of_x:pd.Series)-> pd.Series:
-        return (((self.x_train - element_of_x)**2).sum(axis=1)**0.5)
+        return (self.x_train - element_of_x).pow(2).sum(axis=1).pow(1./2)
     
 
     def predict(self, x_test:pd.DataFrame):
@@ -52,10 +52,10 @@ class KNNClassifier:
             distances = self.euclidean(x_test_element)
        
             distances = pd.DataFrame({'dis':distances, 'labs': self.y_train})
-            distances.sort_values(by='dis')
+            distances.sort_values(by=['dis','lab'])
             #leggyakoribb label kiszedése:
-            label_pred = mode(distances.iloc[:self.k,1],axis=0).mode[0]
-            labels_pred.append(label_pred)
+            label_pred = mode(distances.iloc[:self.k,1],axis=0).mode
+            labels_pred.append(label_pred[0])
 
         self.y_preds = pd.Series(labels_pred)
         
@@ -64,7 +64,7 @@ class KNNClassifier:
 
 
     def accuracy(self)-> float:
-        true_positive = (self.y_test == self.y_preds).sum()
+        true_positive = (self.y_test.reset_index(drop=True) == self.y_preds.reset_index(drop=True)).sum()
         return true_positive / len(self.y_test)*100
     
 
@@ -75,15 +75,16 @@ class KNNClassifier:
 
     def best_k(self) -> Tuple[int, float]:
     
-        best = -math.inf
-        index = -1
-        for i in range(20):
+        best_ac= -math.inf
+        best_k = -1
+        actual_k = self.k
+        for i in range(1,21):
             self.k = i
             self.predict(self.x_test)
             ac = self.accuracy()
-            if best < ac:
-                best = ac
+            if best_ac < ac:
+                best_ac = ac
+                best_k = i
 
-            index = i
-
-        return (round(best,3), index)
+        self.k = actual_k
+        return (round(best_ac,3), best_k)
