@@ -51,11 +51,11 @@ class KNNClassifier:
             #tavolsagok meghatarozasa
             distances = self.euclidean(x_test_element)
        
-            distances = pd.DataFrame({'dis':distances, 'labs': self.y_train})
-            distances.sort_values(by=['dis','lab'])
+            distances = pd.DataFrame({'distances':distances, 'labels': self.y_train})
+            distances.sort_values(by=['distances','labels'])
             #leggyakoribb label kiszedése:
-            label_pred = mode(distances.iloc[:self.k,1],axis=0).mode
-            labels_pred.append(label_pred[0])
+            label_pred = mode(distances.iloc[:self.k,1]).mode
+            labels_pred.append(label_pred)
 
         self.y_preds = pd.Series(labels_pred)
         
@@ -87,4 +87,4 @@ class KNNClassifier:
                 best_k = i
 
         self.k = actual_k
-        return (round(best_ac,3), best_k)
+        return ( best_k, round(best_ac,2))
