@@ -3,8 +3,6 @@
 from typing import Tuple
 from scipy.stats import mode
 from sklearn.metrics import confusion_matrix
-import seaborn as sns
-import random
 import pandas as pd
 import math
 
@@ -14,6 +12,8 @@ class KNNClassifier:
     def __init__(self, k:int, test_split_ratio :float) -> None:
         self.k = k
         self.test_split_ratio = test_split_ratio 
+       
+
 
     
     @property
@@ -41,30 +41,30 @@ class KNNClassifier:
   
     
     def euclidean(self, element_of_x:pd.Series)-> pd.Series:
-        return (self.x_train - element_of_x).pow(2).sum(axis=1).pow(1./2)
+        return pd.Series(self.x_train - element_of_x).pow(2).sum(axis=1).pow(1./2)
     
 
     def predict(self, x_test:pd.DataFrame):
         labels_pred = []
     
-        for i,x_test_element in x_test.iterrows():
+        for idx in range(len(x_test)):
             #tavolsagok meghatarozasa
-            distances = self.euclidean(x_test_element)
+            distances = self.euclidean(x_test.iloc[idx])
        
-            distances = pd.DataFrame({'distances':distances, 'labels': self.y_train})
-            distances.sort_values(by=['distances','labels'])
+            distances = pd.DataFrame({'distances':distances, 'label': self.y_train})
+            distances = distances.sort_values(by=['distances']).reset_index(drop=True)
             #leggyakoribb label kiszedése:
-            label_pred = mode(distances.iloc[:self.k,1]).mode
+            label_pred = distances.loc[:self.k-1, 'label'].mode().values[0]
             labels_pred.append(label_pred)
 
-        self.y_preds = pd.Series(labels_pred)
+        self.y_preds = pd.Series(labels_pred, dtype='Int32').values
         
 
 
 
 
     def accuracy(self)-> float:
-        true_positive = (self.y_test.reset_index(drop=True) == self.y_preds.reset_index(drop=True)).sum()
+        true_positive = (self.y_test == self.y_preds).sum()
         return true_positive / len(self.y_test)*100
     
 
@@ -87,4 +87,4 @@ class KNNClassifier:
                 best_k = i
 
         self.k = actual_k
-        return ( best_k, round(best_ac,2))
+        return best_k, round(best_ac,2)
