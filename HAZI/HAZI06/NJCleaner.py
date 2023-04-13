@@ -25,11 +25,12 @@ class NJCleaner:
         self.data = self.data.drop(['date'], axis=1)
         return self.data
 
-
     def convert_scheduled_time_to_part_of_the_day(self)-> pd.DataFrame:
-        date_map = {pd.date_range('4:00','8:00'):"early_morning" ,pd.date_range('8:00','12:00'):"morning",pd.date_range('12:00','16:00'):"afternoon",pd.date_range('16:00','20:00'):"evening",pd.date_range('20:00','24:00'):"night" , pd.date_range('0:00','4:00'):"late_night"}
-    
-        self.data['part_of_the_day'] = self.data['scheduled_time'].map(date_map)
+
+        self.data['scheduled_time'] =  pd.to_datetime(self.data['scheduled_time']).dt.hour
+        d_map= {pd.Interval(0,3): "late_night", pd.Interval(8,11): "morning", pd.Interval(12, 15) : "afternoon", pd.Interval(16,19):"evening", pd.Interval(20,23):"night", pd.Interval(4,7):"early_morning"}
+        self.data['part_of_the_day'] = self.data['scheduled_time'].map(d_map)
+        self.data = self.data.drop(['scheduled_time'], axis=1)
         return self.data
     
 
@@ -43,9 +44,18 @@ class NJCleaner:
         return self.data
     
 
-    def save_first_60k(self, path_:str)-> pd.DataFrame:
+    def save_first_60k(self, path:str)-> pd.DataFrame:
         df = self.data.head(59999)
-        df.to_csv(path_,index=False)
+        df.to_csv(path,index=False)
+
+    def prep_df(self, path_:str)-> None:
+        self.data = self.order_by_scheduled_time(self.data)
+        self.data = self.drop_columns_and_nan(self.data)
+        self.data = self.convert_date_to_day(self.data)
+        self.data = self.convert_scheduled_time_to_part_of_the_day(self.data)
+        self.data = self.convert_delay(self.data)
+        self.data = self.drop_unnecessary_columns(self.data)
+        self.save_first_60k(self.data, path_)
     
 
         
