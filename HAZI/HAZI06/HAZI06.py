@@ -141,10 +141,38 @@ class DecisionTreeClassifier():
             return self.make_prediction(x, tree.right)
         
 
+        
+col_name = ['stop_sequence', 'from_id', 'to_id', 'status', 'line','type','day','delay']
+dataN = pd.read_csv("data/NJ.csv", skiprows=1, header=None, names=col_name)
+
+
+X = dataN.iloc[:,:-1].values
+Y = dataN.iloc[:, -1].values.reshape(-1,1)
+
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state=41)
+
+classifier = DecisionTreeClassifier(min_samples_split=5.5, max_depth=5.5)
+classifier.fit(X_train, Y_train)
+Y_pred = classifier.predict(X_test)
+print(accuracy_score(Y_test, Y_pred))
+
+#c = [7.3, 7.5, 7.65, 7.8, 7.9]
+#scores = []
+#i=0
+#for choice in c:
+#    classifier = DecisionTreeClassifier(min_samples_split=c[i], max_depth=c[i])
+#    classifier.fit(X_train, Y_train)
+#    Y_pred = classifier.predict(X_test)
+#    scores.append(accuracy_score(Y_test, Y_pred))
+#    i=i+1
+
+#scores
+
+
 #4.feladat
 '''
 Amikor neki álltam a házinak először az órán leírt kódokat próbáltam értelmezni, 
-mert sajnos ott bent semmit sem tudtam megértetni (olyan gyorsan haladtuk). 
+mert sajnos bent az órán semmit sem tudtam megértetni (olyan gyorsan haladtuk). 
 Először a default értékekkel (3,3) próbáltam ki a fit-elést, aminek az accuracy értéke 76% lett.
 Ezután előbb az egész számokkal próbálkoztam:
 (1,1)= 78%, (2,2)=78.5%, (4,4)=78.6%  (5,5)=78.7%, (6,6) = error,(7,7)=error, a 6 efölötti egész számokra error-t dobott ki.
@@ -152,7 +180,7 @@ Ezután megcéloztam az 5 környéki számokat mert ott éretem el eddig a legjo
 (5.2,5.2)= 78.7%,(5.5,5.5)= 78.5% (5.9,5.9) = 78.75%
 A 6 fölötti értékekre még minidg error-t dobott ki, illetve sehogy se jött ki 78.7%-nál jobb accuracy. 
 Így kipróbáltam a moddle-ra feltöltött NJ_60k.csv-vel is és 
-így (7.9,7.9) értékekkel elértem a 79.18%-ot de ennél jobbat sajnos nem sikerült elérnem.
-
+így (7.9,7.9) értékekkel elértem a 79.18%-ot de ennél jobbat sajnos nem sikerült elérnem és a 8 fölötti értékekre errort dobott ki.
+Azt sajnos nem sikerült kitalálnom, hogy az én njcleaner-em által létrehozott csv miben volt más mint a feltöltött.
 '''
         
