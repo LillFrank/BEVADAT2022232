@@ -14,7 +14,7 @@ class LinearRegression:
     
 
     def fit(self, X: np.array, y: np.array):
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+      #  self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         self.m = 0 #meredekség
         self.c = 0 #metszés x tengelyel
         n = float(len(self.X_train)) # Number of elements in X
