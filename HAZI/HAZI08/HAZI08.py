@@ -24,5 +24,13 @@ def check_data(iris) -> pd.DataFrame:
 def linear_train_data(iris) -> np.ndarray:
     X = iris['sepal width (cm)'].values
     y = iris['sepal length (cm)'].values
-
     return X,y
+
+def logistic_train_data(iris) -> np.ndarray:
+     df = pd.DataFrame(iris.data,columns=iris.feature_names)
+     df['target'] = iris.target
+     df.drop(df.loc[df['target'] == 2].index, inplace = True)
+     y= df['target']
+     train = df[['sepal length (cm)','sepal width (cm)']].to_numpy()
+     X= train
+     return X,y
