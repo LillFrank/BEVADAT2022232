@@ -22,8 +22,10 @@ def check_data(iris) -> pd.DataFrame:
     return df.head(5)
 
 def linear_train_data(iris) -> np.ndarray:
-    X = iris['sepal width (cm)'].values
-    y = iris['sepal length (cm)'].values
+    df = pd.DataFrame(iris.data,columns=iris.feature_names)
+
+    X = df['sepal width (cm)'].values
+    y = df['sepal length (cm)'].values
     return X,y
 
 def logistic_train_data(iris) -> np.ndarray:
@@ -34,3 +36,26 @@ def logistic_train_data(iris) -> np.ndarray:
      train = df[['sepal length (cm)','sepal width (cm)']].to_numpy()
      X= train
      return X,y
+
+def split_data(X,y):
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
+    return X_train, X_test, y_train, y_test
+
+def train_linear_regression(X_train, y_train):
+    LinearRegression().__init__()
+    model = LinearRegression()
+    model.fit(X_train,y_train)
+    return model
+
+def train_logistic_regression(X_train, y_train):
+    LogisticRegression().__init__()
+    model = LogisticRegression()
+    model.fit(X_train,y_train)
+    return model
+
+def predict(model , X_test):
+    return model.predict(X_test)
+
+def plot_actual_vs_predicted(y_test,y_pred):
+    plt.scatter(y_test,y_pred)
+    plt.show()
