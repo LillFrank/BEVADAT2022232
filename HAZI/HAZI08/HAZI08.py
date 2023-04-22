@@ -9,6 +9,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.metrics import mean_squared_error
 
+import matplotlib.pyplot as plt
+
 
 
 
@@ -23,8 +25,7 @@ def check_data(iris) -> pd.DataFrame:
 
 def linear_train_data(iris) -> np.ndarray:
     df = pd.DataFrame(iris.data,columns=iris.feature_names)
-
-    X = df['sepal width (cm)'].values
+    X = df[['sepal width (cm)','petal length (cm)','petal width (cm)']].values
     y = df['sepal length (cm)'].values
     return X,y
 
@@ -33,8 +34,7 @@ def logistic_train_data(iris) -> np.ndarray:
      df['target'] = iris.target
      df.drop(df.loc[df['target'] == 2].index, inplace = True)
      y= df['target']
-     train = df[['sepal length (cm)','sepal width (cm)']].to_numpy()
-     X= train
+     X = df[['sepal length (cm)','sepal width (cm)', 'petal length (cm)','petal width (cm)']].values
      return X,y
 
 def split_data(X,y):
@@ -58,4 +58,9 @@ def predict(model , X_test):
 
 def plot_actual_vs_predicted(y_test,y_pred):
     plt.scatter(y_test,y_pred)
-    plt.show()
+    plt.ylabel="Predict"
+    plt.xlabel="Actual"
+    
+    
+def evaluate_model(y_test,y_pred):
+    return mean_squared_error(y_test,y_pred)
