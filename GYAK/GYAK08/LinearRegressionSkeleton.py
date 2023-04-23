@@ -14,7 +14,7 @@ class LinearRegression:
       #  self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.2, random_state=42)
         self.m = 0 #meredekség
         self.c = 0 #metszés x tengelyel
-        n = float(len(self.X_train)) # Number of elements in X
+        n = float(len(X)) # Number of elements in X
 
  
         losses = []
@@ -30,12 +30,6 @@ class LinearRegression:
             self.c = self.c + self.lr * D_c  # Update c
             if i % 100 == 0:
                 (np.mean(y-self.y_pred))
-
-
-        
-            
-        
-        
 
 
     def predict(self, X):
