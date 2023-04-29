@@ -27,8 +27,8 @@ class KMeansOnDigits():
     def get_labels(self):
         result = np.empty(self.clusters.shape)
 
-        for i in self.digits.target_names:
-            ms = i==self.clusters
+        for cl in self.digits.target_names:
+            ms = (self.clusters == cl)
             subarray = self.digits.target[ms]
             mod = mode(subarray).mode.item()
             result[ms] = mod
