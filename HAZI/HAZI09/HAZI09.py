@@ -22,7 +22,7 @@ class KMeansOnDigits():
     
     def predict(self)-> KMeans and  np.ndarray:
         kmean = KMeans(n_clusters=self.n_clusters,random_state=self.random_state)
-        self.clusters = kmean.fit_predict(self.digits.data, self.digits.target)
+        self.clusters = kmean.fit_predict(self.digits.data)
 
     def get_labels(self):
         result = np.empty(self.clusters.shape)
