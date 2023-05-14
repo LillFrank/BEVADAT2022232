@@ -21,7 +21,7 @@ def cifar100_model():
     model.add(layers.Flatten())
     model.add(layers.Dense(256, activation='relu'))
     model.add(layers.Dense(128, activation='relu'))
-    model.add(layers.Dense(100), activation='softmax')
+    model.add(layers.Dense(100, activation='softmax'))
     return model
 
 def model_compile(model):
